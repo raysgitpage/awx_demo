@@ -1,0 +1,17 @@
+---
+  - name: configure ip on interface g1/0
+    hosts: routers
+    tasks:
+      - name : Configure IP on interfaces
+        cisco.ios.ios_config:
+          backup: yes
+          lines:
+            - ip address 172.0.1.1 255.255.255.0
+            - no shut
+          parents: "{{ item }}"
+        with_items:
+          - int g1/0
+        register: ip_config
+      - name: Print Output
+        debug:
+          var: ip_config

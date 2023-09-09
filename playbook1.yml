@@ -1,0 +1,11 @@
+---
+  - name: Network Getting Started First Playbook
+    hosts: routers
+    tasks:
+      - name : Gather IOS Facts
+        ios_facts:
+          gather_subset: all
+        register: all_subset
+      - name: Print Output
+        debug:
+          var: all_subset

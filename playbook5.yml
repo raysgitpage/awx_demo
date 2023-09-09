@@ -1,0 +1,15 @@
+---
+- name: Cisco ip details interface G0/0 for all routers 
+  hosts: routers
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Interface
+      cisco.ios.ios_facts:
+        gather_subset: interfaces 
+      register: output
+    - name: Print the gateway for each host when defined
+      ansible.builtin.debug:
+        msg: Gig0/0 Address {{ ansible_net_interfaces['GigabitEthernet0/0']['ipv4'] }}
+  

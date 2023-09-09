@@ -1,0 +1,13 @@
+---
+  - name: Network Getting Started First Playbook
+    hosts: routers
+    tasks:
+      - name : Gather IOS Facts
+        cisco.ios.ios_facts:
+          gather_subset: min
+          gather_network_resources: interfaces
+        register: all_ifaces
+      - name: Print Output
+        debug:
+          var: all_ifaces
+          #msg: "{{ ansible_net_hostname }}"
